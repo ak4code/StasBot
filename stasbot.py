@@ -5,6 +5,7 @@ import schedule as schedule
 import telebot
 from dotenv import load_dotenv
 import requests
+from boobs import get_boobs
 
 load_dotenv()
 
@@ -13,7 +14,7 @@ test = '-475951554'
 vprotivogaze = '-447633079'
 
 
-@bot.message_handler(commands=['start',])
+@bot.message_handler(commands=['start', ])
 def send_welcome(message):
     print(message)
     bot.reply_to(message, f"Привет! {message.from_user.first_name} {message.from_user.last_name}")
@@ -27,6 +28,11 @@ def show_weather(message):
     for weather in weathers:
         bot.send_message(message.chat.id,
                          f'{weather.get("name")} {weather.get("weather")[0].get("description")} температура {weather.get("main").get("temp")} °C')
+
+
+@bot.message_handler(commands=['boobs'])
+def show_boobs(message):
+    bot.send_message(message.chat.id, get_boobs())
 
 
 def day_weather():
