@@ -16,8 +16,7 @@ vprotivogaze = '-447633079'
 
 @bot.message_handler(commands=['start', 'boobs', ])
 def send_welcome(message):
-    print(message)
-    bot.reply_to(message, f"Привет {message.from_user.first_name}, маленький извращенец! ")
+    bot.send_message(message.chat.id, f"Привет {message.from_user.first_name}, маленький извращенец! ")
 
 
 @bot.message_handler(commands=['pogoda'])
