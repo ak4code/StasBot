@@ -14,10 +14,10 @@ test = '-475951554'
 vprotivogaze = '-447633079'
 
 
-@bot.message_handler(commands=['start', ])
+@bot.message_handler(commands=['start', 'boobs', ])
 def send_welcome(message):
     print(message)
-    bot.reply_to(message, f"Привет! {message.from_user.first_name} {message.from_user.last_name}")
+    bot.reply_to(message, f"Привет {message.from_user.first_name}, маленький извращенец! ")
 
 
 @bot.message_handler(commands=['pogoda'])
@@ -25,7 +25,6 @@ def show_weather(message):
     bot.send_message(message.chat.id, get_weather())
 
 
-@bot.message_handler(commands=['boobs'])
 def show_boobs(message):
     bot.send_message(message.chat.id, get_boobs())
 
