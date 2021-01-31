@@ -4,8 +4,8 @@ import time
 import schedule as schedule
 import telebot
 from dotenv import load_dotenv
-import requests
 from boobs import get_boobs
+from weather import get_weather
 
 load_dotenv()
 
@@ -22,12 +22,7 @@ def send_welcome(message):
 
 @bot.message_handler(commands=['pogoda'])
 def show_weather(message):
-    url = f'https://api.openweathermap.org/data/2.5/group?id=542420,483661,484670&appid={os.getenv("W_API_KEY")}&lang=ru&units=metric'
-    r = requests.get(url=url)
-    weathers = r.json().get('list')
-    for weather in weathers:
-        bot.send_message(message.chat.id,
-                         f'{weather.get("name")} {weather.get("weather")[0].get("description")} температура {weather.get("main").get("temp")} °C')
+    bot.send_message(message.chat.id, get_weather())
 
 
 @bot.message_handler(commands=['boobs'])
@@ -36,12 +31,7 @@ def show_boobs(message):
 
 
 def day_weather():
-    url = f'https://api.openweathermap.org/data/2.5/group?id=542420,483661,484670&appid={os.getenv("W_API_KEY")}&lang=ru&units=metric'
-    r = requests.get(url=url)
-    weathers = r.json().get('list')
-    for weather in weathers:
-        bot.send_message(vprotivogaze,
-                         f'{weather.get("name")} {weather.get("weather")[0].get("description")} температура {weather.get("main").get("temp")} °C')
+    bot.send_message(vprotivogaze, get_weather())
 
 
 def runBot():
