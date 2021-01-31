@@ -6,10 +6,11 @@ import telebot
 from dotenv import load_dotenv
 from boobs import get_boobs
 from weather import get_weather
+from news import update_feed, get_news
 
 load_dotenv()
 
-bot = telebot.TeleBot(os.getenv("TOKEN"))
+bot = telebot.TeleBot(os.getenv("TOKEN"), parse_mode='HTML')
 test = '-475951554'
 vprotivogaze = '-447633079'
 
@@ -23,6 +24,10 @@ def send_welcome(message):
 def show_weather(message):
     bot.send_message(message.chat.id, get_weather())
 
+@bot.message_handler(commands=['news'])
+def show_news(message):
+    bot.send_message(message.chat.id, get_news())
+
 
 def show_boobs(message):
     bot.send_message(message.chat.id, get_boobs())
@@ -31,13 +36,18 @@ def show_boobs(message):
 def day_weather():
     bot.send_message(vprotivogaze, get_weather())
 
+def news():
+    bot.send_message(vprotivogaze, get_news())
+
 
 def runBot():
     bot.polling()
 
 
 def runSchedulers():
+    update_feed()
     schedule.every().day.at('09:00').do(day_weather)
+    schedule.every(1).hours.do(update_feed)
 
     while True:
         schedule.run_pending()
