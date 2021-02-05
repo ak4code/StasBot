@@ -11,6 +11,7 @@ def update_feed():
         news.append({'title': item.find('title').text, 'link': item.find('link').text, 'description': item.find('description').text})
 
 def get_news():
+    news.clear()
     update_feed()
     item = news[randint(1, 10)]
     return f"<b>{item.get('title')}</b>{item.get('description')}{item.get('link')}"
