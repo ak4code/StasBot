@@ -43,11 +43,17 @@ def news():
     bot.send_message(vprotivogaze, get_news())
 
 
+def boobs():
+    bot.send_message(vprotivogaze, f"А вот и пятничные сиськи!")
+    bot.send_message(vprotivogaze, get_boobs())
+
+
 def runBot():
     bot.polling()
 
 
 def runSchedulers():
+    schedule.every().friday.at('16:00').do(boobs)
     schedule.every().day.at('21:00').do(forecast)
     schedule.every().day.at('10:00').do(news)
     schedule.every().day.at('13:00').do(news)
