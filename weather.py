@@ -69,5 +69,5 @@ def get_forecast():
     if not forecasts:
         return "Нет данных по погоде!"
     for forecast in forecasts:
-        weather += f"{forecast.get('geo_object').get('locality').get('name')}: {forecast.get('forecasts')[1].get('parts').get('morning').get('temp_avg')}°C ощущается как {forecast.get('forecasts')[1].get('parts').get('morning').get('feels_like')}°C {condition.get(forecast.get('fact').get('condition'))}, направление ветра {wind_dir.get(forecast.get('forecasts')[1].get('parts').get('morning').get('wind_dir'))} скорость {forecast.get('forecasts')[1].get('parts').get('morning').get('wind_speed')}м/с.\n\n"
+        weather += f"{forecast.get('geo_object').get('locality').get('name')}: {forecast.get('forecasts')[1].get('parts').get('morning').get('temp_avg')}°C ощущается как {forecast.get('forecasts')[1].get('parts').get('morning').get('feels_like')}°C {condition.get(forecast.get('forecasts')[1].get('parts').get('morning').get('condition'))}, направление ветра {wind_dir.get(forecast.get('forecasts')[1].get('parts').get('morning').get('wind_dir'))} скорость {forecast.get('forecasts')[1].get('parts').get('morning').get('wind_speed')}м/с.\n\n"
     return weather
