@@ -5,8 +5,8 @@ import schedule as schedule
 import telebot
 from dotenv import load_dotenv
 from boobs import get_boobs
-from weather import get_weather
-from news import update_feed, get_news
+from weather import get_weather, get_forecast
+from news import get_news
 
 load_dotenv()
 
@@ -15,26 +15,29 @@ test = '-475951554'
 vprotivogaze = '-447633079'
 
 
-@bot.message_handler(commands=['start', 'boobs', ])
+@bot.message_handler(commands=['start'])
 def send_welcome(message):
-    bot.send_message(message.chat.id, f"Привет {message.from_user.first_name}, маленький извращенец! ")
+    bot.send_message(message.chat.id, f"Привет {message.from_user.first_name}, мой кожаный друг! ")
 
 
 @bot.message_handler(commands=['pogoda'])
 def show_weather(message):
     bot.send_message(message.chat.id, get_weather())
 
+
 @bot.message_handler(commands=['news'])
 def show_news(message):
     bot.send_message(message.chat.id, get_news())
 
 
+@bot.message_handler(commands=['boobs'])
 def show_boobs(message):
     bot.send_message(message.chat.id, get_boobs())
 
 
-def day_weather():
-    bot.send_message(vprotivogaze, get_weather())
+def forecast():
+    bot.send_message(vprotivogaze, get_forecast())
+
 
 def news():
     bot.send_message(vprotivogaze, get_news())
@@ -45,9 +48,10 @@ def runBot():
 
 
 def runSchedulers():
-    update_feed()
-    schedule.every().day.at('09:00').do(day_weather)
-    schedule.every(1).hours.do(update_feed)
+    schedule.every().day.at('21:00').do(forecast)
+    schedule.every().day.at('10:00').do(news)
+    schedule.every().day.at('13:00').do(news)
+    schedule.every().day.at('18:00').do(news)
 
     while True:
         schedule.run_pending()
