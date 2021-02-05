@@ -54,10 +54,10 @@ def runBot():
 
 def runSchedulers():
     schedule.every().friday.at('16:00').do(boobs)
-    schedule.every().day.at('21:00').do(forecast)
-    schedule.every().day.at('10:00').do(news)
-    schedule.every().day.at('13:00').do(news)
-    schedule.every().day.at('18:00').do(news)
+    schedule.every().days.at('21:00').do(forecast)
+    schedule.every().days.at('10:00').do(news)
+    schedule.every().days.at('13:00').do(news)
+    schedule.every().days.at('19:30').do(news)
 
     while True:
         schedule.run_pending()
