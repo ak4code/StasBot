@@ -36,9 +36,10 @@ def show_boobs(message):
     bot.send_message(message.chat.id, get_boobs())
 
 
-@bot.message_handler(func=lambda message: message.chat.id == test)
-def handle_text_doc(message):
-    bot.send_message(vprotivogaze, message.text)
+@bot.message_handler(func=lambda message: True)
+def handle_test(message):
+    if str(message.chat.id) == test:
+        bot.send_message(vprotivogaze, message.text)
 
 
 def forecast():
