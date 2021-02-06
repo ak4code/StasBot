@@ -17,7 +17,8 @@ vprotivogaze = '-447633079'
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    bot.send_message(message.chat.id, f"Привет {message.from_user.first_name}, мой кожаный друг! ")
+    bot.send_message(
+        message.chat.id, f"Привет {message.from_user.first_name}, мой кожаный друг! ")
 
 
 @bot.message_handler(commands=['pogoda'])
@@ -33,6 +34,11 @@ def show_news(message):
 @bot.message_handler(commands=['boobs'])
 def show_boobs(message):
     bot.send_message(message.chat.id, get_boobs())
+
+
+@bot.message_handler(func=lambda message: message.chat.id == test)
+def handle_text_doc(message):
+    bot.send_message(vprotivogaze, message.text)
 
 
 def forecast():
