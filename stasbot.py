@@ -4,6 +4,8 @@ import time
 import schedule as schedule
 import telebot
 from dotenv import load_dotenv
+from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
+
 from boobs import get_boobs
 from weather import get_weather, get_forecast
 from news import get_news
@@ -15,31 +17,29 @@ test = '-475951554'
 vprotivogaze = '-447633079'
 
 
-@bot.message_handler(commands=['start'])
+def gen_markup():
+    markup = InlineKeyboardMarkup()
+    markup.row_width = 3
+    markup.add(InlineKeyboardButton("Погода", callback_data="weather"),
+               InlineKeyboardButton("Новость", callback_data="news"),
+               InlineKeyboardButton("Сиськи", callback_data="boobs"))
+    return markup
+
+
+@bot.message_handler(commands=['start'], regexp="^стас?")
 def send_welcome(message):
-    bot.send_message(
-        message.chat.id, f"Привет {message.from_user.first_name}, мой кожаный друг! ")
+    bot.send_message(message.chat.id, f"Привет {message.from_user.first_name}, что хотел?", reply_markup=gen_markup())
 
 
-@bot.message_handler(commands=['pogoda'])
-def show_weather(message):
-    bot.send_message(message.chat.id, get_weather())
 
-
-@bot.message_handler(commands=['news'])
-def show_news(message):
-    bot.send_message(message.chat.id, get_news())
-
-
-@bot.message_handler(commands=['boobs'])
-def show_boobs(message):
-    bot.send_message(message.chat.id, get_boobs())
-
-
-@bot.message_handler(func=lambda message: True)
-def handle_test(message):
-    if str(message.chat.id) == test:
-        bot.send_message(vprotivogaze, message.text)
+@bot.callback_query_handler(func=lambda call: True)
+def callback_query(call):
+    if call.data == "weather":
+        bot.send_message(call.message.chat.id, get_weather())
+    elif call.data == "news":
+        bot.send_message(call.message.chat.id, get_news())
+    elif call.data == "boobs":
+        bot.send_message(call.message.chat.id, get_boobs())
 
 
 def forecast():
