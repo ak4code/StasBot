@@ -26,10 +26,14 @@ def gen_markup():
     return markup
 
 
-@bot.message_handler(commands=['start'], regexp="^стас?")
+@bot.message_handler(commands=['start'])
 def send_welcome(message):
     bot.send_message(message.chat.id, f"Привет {message.from_user.first_name}, что хотел?", reply_markup=gen_markup())
 
+
+@bot.message_handler(regexp="^стас?")
+def directly_ask(message):
+    bot.send_message(message.chat.id, f"Привет {message.from_user.first_name}, что хотел?", reply_markup=gen_markup())
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -56,7 +60,7 @@ def boobs():
 
 
 def runBot():
-    bot.polling()
+    bot.polling(True)
 
 
 def runSchedulers():
