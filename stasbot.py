@@ -31,7 +31,7 @@ def send_welcome(message):
     bot.send_message(message.chat.id, f"Привет {message.from_user.first_name}, что хотел?", reply_markup=gen_markup())
 
 
-@bot.message_handler(regexp="^стас?")
+@bot.message_handler(regexp="^киса?")
 def directly_ask(message):
     bot.send_message(message.chat.id, f"Привет {message.from_user.first_name}, что хотел?", reply_markup=gen_markup())
 
@@ -66,9 +66,6 @@ def runBot():
 def runSchedulers():
     schedule.every().friday.at('16:00').do(boobs)
     schedule.every().days.at('21:00').do(forecast)
-    schedule.every().days.at('10:00').do(news)
-    schedule.every().days.at('13:00').do(news)
-    schedule.every().days.at('19:30').do(news)
 
     while True:
         schedule.run_pending()
